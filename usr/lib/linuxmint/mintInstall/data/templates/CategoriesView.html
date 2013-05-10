@@ -11,44 +11,32 @@
   }
   function addCategory(name, num_packages, img) {
     oT = document.getElementsByTagName("table")[0];
-    Tr = document.getElementsByTagName("tr")[0];
-    newTd = document.createElement("td");
-    newTd.setAttribute("tabindex", 0)
-    newTd.className = "category_td";
+    Ul = document.getElementsByTagName("ul")[0];
+    newLi = document.createElement("li");
+    newLi.setAttribute("tabindex", 0)
     // we need a <p> around the img so that we can align it
-    newTextAroundImg = document.createElement("div");
-    newImg = document.createElement("img");
-    newImg.src = img;
-    newImg.setAttribute("width", 64);
-    newImg.setAttribute("height", 64);
-    newImg.className = "no_drag";
-    newTextAroundImg.appendChild(newImg);
     newText = document.createElement("div");
-    newText.align = "center";
 
     newSubText = document.createElement("font");
-    newSubText.align = "center";
     newSubText.setAttribute("size", 1);
     newSubText.setAttribute("color", "#555555");
     //newSubText2 = document.createElement("b");
-    newSubText.appendChild(document.createTextNode(num_packages))
+    newSubText.appendChild(document.createTextNode("  " + num_packages))
   //  newSubText.appendChild(newSubText2)
 
     click_cb = 'changeTitle("call:on_category_clicked:' + name + '");';
-    newTd.setAttribute('onclick', click_cb);
+    newLi.setAttribute('onclick', click_cb);
     key_cb = 'if (event.which == 13) { changeTitle("call:on_category_clicked:' + name + '"); };'
-    newTd.setAttribute('onkeydown', key_cb);
-    newTd.id = "Category_"+ parseInt(categoryCount)
+    newLi.setAttribute('onkeydown', key_cb);
+    newLi.id = "Category_"+ parseInt(categoryCount)
     newText.appendChild(document.createTextNode(name))
-    newText.appendChild(document.createElement("br"))
     newText.appendChild(newSubText)
-    newTd.appendChild(newTextAroundImg);
-    newTd.appendChild(newText);    
-    Tr.appendChild(newTd);
+    newLi.appendChild(newText); 
+    Ul.appendChild(newLi);
     categoryCount += 1;
   }
   function clearCategories() {      
-    var row = document.getElementsByTagName("tr")[0];
+    var row = document.getElementsByTagName("li")[0];
     for(var i = row.cells.length - 1; i >= 0; i--)
     {
         row.deleteCell(i);
@@ -146,17 +134,50 @@
     .category_td p { font-size:90%; text-align:center; }
     .category_td div { font-size:90%; text-align:center; }
     .no_drag { -khtml-user-drag:none; }
- </style>
+	
+	#categoriesList{
+	border: 5px solid #8B3;
+	background-color: #EEE;
+	width: 200px;
+	float: left;
+	-webkit-border-radius: 10px;
+	height: 500px;
+	margin: 30px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	}
+	#categoriesList h3{
+	font-size: 16px;
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	width: 160px;
+	border-bottom-color: #8B3;
+	line-height: 20px;
+	}
+	#categoriesList ul{
+		margin : 0 ;
+		padding : 0 ; 
+	}
+	#categoriesList ul li{
+	text-decoration: none;
+	list-style-type: none;
+	font-size: 14px;
+	line-height: 24px;
+	margin : 0 ;
+	padding : 0 ; 
+	}
+  </style>
  
  <style type="text/css">
     *{ -khtml-user-drag:none;}
     body {
-      background-color: #efefef;
-      background-image: url('/usr/lib/linuxmint/mintInstall/data/templates/bg-gradient.jpg');
-      background-repeat: repeat-x;        
-      margin-left: 5px; 
-      margin-right: 5px; 
-      padding: 1em 12px;   
+	background-color: #DDD;
+	/*background-image: url('/usr/lib/linuxmint/mintInstall/data/templates/bg-gradient.jpg');*/
+	background-repeat: repeat-x;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding: 1em 12px;
       font-family:${font_family};
       font-size:${font_size};
       font-weight:${font_weight};
@@ -317,6 +338,14 @@
   <table id="categoriesTable">        
     <tr></tr>
   </table>
-  <div class="pod"><div style="font-size:70%">&nbsp;$package_num</div></div>
+  <div id="categoriesList">
+  <h3>$categories_title</h3>
+  	<ul>
+  		<li></li>
+  	</ul>
+  </div>
+  <div class="clear" style="clear:both" ></div>
+<div class="pod"><div style="font-size:70%">&nbsp;$package_num</div></div>
 </body>
 </html>
+

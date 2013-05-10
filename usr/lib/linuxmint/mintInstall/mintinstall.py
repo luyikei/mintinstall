@@ -491,6 +491,7 @@ class Application():
         template = open("/usr/lib/linuxmint/mintInstall/data/templates/CategoriesView.html").read()
         subs = {'header': _("Categories")}      
         subs['subtitle'] = _("Please choose a category")
+        subs['categories_title'] = _("Categories")
         subs['package_num'] = _("%d packages are currently available") % len(self.packages)
         html = string.Template(template).safe_substitute(subs)
         self.browser.load_html_string(html, "file:/")
